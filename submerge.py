@@ -97,10 +97,16 @@ def merge_file(video_file, sub_file, lang='en'):
 	if opt.debug:
 		print "Running: " + ' '.join(command)
 
-	subprocess.call(command, shell=False)
+	returncode = subprocess.call(command, shell=False)
 
-	# Move Subtitle File Into Backup Folder
-	os.rename(sub_file, "backup/" + sub_file)
+	if returncode == 0:
+		# Move Subtitle File Into Backup Folder
+		os.rename(sub_file, "backup/" + sub_file)
+		return True
+	else:
+		print "ERROR: mkvmerge returned with error."
+		os.rename(video_file_bak, video_file)
+		return False
 
 
 def find_subtitle_less_files(files):
@@ -146,11 +152,12 @@ def merge_files(files):
 		if m:
 			name = m.group('name')
 			vid_reg = re.compile('^' + name + '\.' + v_ext + '$')
+			merge_result = False
 			for f in files:
 				if vid_reg.match(f):
-					merge_file(f, sf)
+					merge_result = merge_file(f, sf)
 					break
-			if os.path.isfile(sf):
+			if merge_result and os.path.isfile(sf):
 				print
 				print "ERROR: No Video found for file: " + sf
 				print
