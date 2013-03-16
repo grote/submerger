@@ -20,7 +20,7 @@
 VERSION = "0.0.1"
 
 # Subtitle Extensions
-SUB_EXT = [ 'srt', 'ssa' ]
+SUB_EXT = [ 'srt', 'ssa', 'sub' ]
 
 # Video File Extensions
 VID_EXT = [ 'mkv', 'webm', 'avi', 'mp4' ]
