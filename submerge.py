@@ -17,7 +17,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 
 # Subtitle Extensions
 SUB_EXT = [ 'srt', 'ssa', 'sub' ]
@@ -67,7 +67,7 @@ def check_for_mkvmerge():
 
 def merge_file(video_file, sub_file, lang='en'):
 	print
-	print "Merging: " + video_file + " and"
+	print "Merging: " + video_file
 	print "         " + sub_file
 	print
 	
@@ -148,13 +148,16 @@ def merge_files(files):
 
 	# Go Through Found Subtitle Files
 	for sf in sfiles:
-		m = re.search('(?P<name>.+?)([_.]' + i_ext + ')?\.' + s_ext + '$', sf)
+		m = re.search('(?P<name>.+?)([_.]' + i_ext + ')?\.' + s_ext + '$', sf, re.IGNORECASE)
+		# if we found a subtitle file
 		if m:
 			name = m.group('name')
-			vid_reg = re.compile('^' + name + '\.' + v_ext + '$')
+			vid_reg = re.compile('^' + re.escape(name) + '\.' + v_ext + '$')
 			merge_result = False
+			# try to find a matching video file for the current subtitle file
 			for f in files:
 				if vid_reg.match(f):
+					# we found a matching video file, so merge both
 					merge_result = merge_file(f, sf)
 					break
 			if merge_result and os.path.isfile(sf):
