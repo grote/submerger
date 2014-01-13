@@ -26,7 +26,7 @@ SUB_EXT = [ 'srt', 'ssa', 'sub' ]
 VID_EXT = [ 'mkv', 'webm', 'avi', 'mp4' ]
 
 # Language Codes
-ISO_EXT = [ 'en', 'eng', 'de', 'fr', 'jp', 'ch', 'sw', 'hu' ]
+ISO_EXT = [ 'en', 'eng', 'de', 'fr', 'jp', 'ch', 'sw', 'hu', 'pt', 'spa', 'es' ]
 
 ### ONLY CHANGE BELOW THIS LINE IF YOU KNOW WHAT YOU ARE DOING ###
 
