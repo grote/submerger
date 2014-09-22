@@ -34,6 +34,7 @@ import sys
 import os
 import re
 import subprocess
+import shutil
 from optparse import OptionParser
 
 # Parse Command Line Options
@@ -181,7 +182,7 @@ def merge_files(files):
 
 	if opt.remove_backup:
 		print "Removing backup files..."
-		os.rmdir("backup/")
+		shutil.rmtree("backup/")
 
 
 def main():
